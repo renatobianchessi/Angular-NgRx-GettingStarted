@@ -1,22 +1,38 @@
-import { createAction, createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
+import { createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
+import { User } from "../user";
+import * as UserActions from './user.actions';
 
+// State for this feature (User)
 export interface UserState {
-    maskUserName: boolean;
+  maskUserName: boolean;
+  currentUser: User;
 }
 
-const getmaskUserNameState = createFeatureSelector<UserState>('user');
+const initialState: UserState = {
+  maskUserName: true,
+  currentUser: null
+};
+
+
+// Selector functions
+const getUserFeatureState = createFeatureSelector<UserState>('users');
 
 export const getMaskUserName = createSelector(
-    getmaskUserNameState,
-    state => state.maskUserName
+  getUserFeatureState,
+  state => state.maskUserName
 );
 
-export const userReducer = createReducer(
-    { maskUserName: false },
-    on(createAction('[User] Mask User Name'), state => {
-        return {
-            ...state,
-            maskUserName: !state.maskUserName
-        }
-    })
+export const getCurrentUser = createSelector(
+  getUserFeatureState,
+  state => state.currentUser
+);
+
+export const userReducer = createReducer<UserState>(
+  initialState,
+  on(UserActions.maskUserName, (state): UserState => {
+    return {
+      ...state,
+      maskUserName: !state.maskUserName
+    };
+  })
 );
