@@ -15,7 +15,7 @@ const initialState: UserState = {
 
 
 // Selector functions
-const getUserFeatureState = createFeatureSelector<UserState>('users');
+const getUserFeatureState = createFeatureSelector<UserState>('user');
 
 export const getMaskUserName = createSelector(
   getUserFeatureState,
