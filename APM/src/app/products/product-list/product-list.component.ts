@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { Product } from '../product';
 import { getCurrentProduct, getError, getProducts, getShowProductCode, State } from '../state/product.reducer';
@@ -44,7 +44,7 @@ export class ProductListComponent implements OnInit {
   }
 
   productSelected(product: Product): void {
-    this.store.dispatch(ProductActions.setCurrentProduct({ product }));
+    this.store.dispatch(ProductActions.setCurrentProduct({ currentProductId: product.id }));
   }
 
 }
